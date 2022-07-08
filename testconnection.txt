@@ -1,0 +1,31 @@
+<php
+ob_start();
+$API_KEY = "5098327396:AAHSYV9sRlXTEK4iXVtf4BoB2RcI6leEhHg";
+define('API_KEY',$API_KEY);
+function dev_a($method,$datas=[]){
+    $dev_ii = http_build_query($datas);
+	$url = "https://api.telegram.org/bot".API_KEY."/".$method."?$dev_ii";
+	$syr = file_get_contents($url);
+	return json_decode($syr);
+}
+$update = json_decode(file_get_contents('php://input'));
+$message = $update->message;
+$chat_id = $message->chat->id;
+$text = $message->text;
+$us = $message->from->username;
+$chat_id2 = $update->callback_query->message->chat->id;
+$message_id = $update->callback_query->message->message_id;
+$php_i = 612393384;
+$message_id2 = $update->callback_query->message->message_id;
+$data = $update->callback_query->data;
+ 
+if($text='/start'){
+	bot('sendMessage',
+		[
+		'chat_id'=>$chat_id,
+		'text'=>"تـم انشاء لسته المعرفات 🥤",
+		'reply_to_message_id'=>$message->message_id,
+		]
+	);
+}
+?>
